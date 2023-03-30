@@ -89,7 +89,7 @@ public class VendingMachineInventory {
             changeOutput += amountOfPennies + "Pennies ";
         }
 
-
+            return changeOutput;
 
     }
 }
