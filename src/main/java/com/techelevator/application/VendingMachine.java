@@ -7,15 +7,15 @@ import java.io.FileNotFoundException;
 
 public class VendingMachine 
 {
-<<<<<<< HEAD
+
     private CurrUser user = new CurrUser();
     public void run()
     {
-=======
+
     public void run() throws FileNotFoundException {
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
         vendingMachineInventory.parseInventory();
->>>>>>> main
+
         while(true)
         {
             UserOutput.displayHomeScreen();
