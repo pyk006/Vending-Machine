@@ -17,7 +17,7 @@ public class VendingMachineInventory {
     private static final BigDecimal PENNY = new BigDecimal(".01");
     private static final BigDecimal DOLLAR = new BigDecimal("1.00");
     private static final BigDecimal ZERO = new BigDecimal("0.00");
-    private BigDecimal currBalance = new BigDecimal("0.00");
+    private BigDecimal currBalance = new BigDecimal("5.45");
     private int hasDiscount = 1;
 
 
@@ -57,38 +57,38 @@ public class VendingMachineInventory {
     public void purchaseItem(String s) {
         searchById(s).itemPurchased();
         if(hasDiscount < 0) {
-            this.currBalance.add(new BigDecimal("1.00"));
+            this.currBalance = this.currBalance.add(new BigDecimal("1.00"));
         }
-        this.currBalance.subtract(searchById(s).getPrice());
+        this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
 
     }
-    public BigDecimal feedMoney(String inputVal) {
-        return this.currBalance.add(new BigDecimal(inputVal));
+    public void feedMoney(String inputVal) {
+        this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
     }
 
     public String finishTransaction() {
         String changeOutput = "";
-        BigDecimal amountOfDollars = this.currBalance.divide(DOLLAR);
-        BigDecimal amountOfQuarters = this.currBalance.remainder(DOLLAR).divide(QUARTER);
-        BigDecimal amountOfDimes = this.currBalance.remainder(DOLLAR).remainder(QUARTER).divide(DIME);
-        BigDecimal amountOfNickels = this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).divide(NICKEL);
-        BigDecimal amountOfPennies = this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).remainder(NICKEL).divide(PENNY);
-        if (amountOfDollars.compareTo(ZERO) == 1) {
+        int amountOfDollars = (this.currBalance.divide(DOLLAR)).intValue();
+        int amountOfQuarters = (this.currBalance.remainder(DOLLAR).divide(QUARTER)).intValue();
+        int amountOfDimes = (this.currBalance.remainder(DOLLAR).remainder(QUARTER).divide(DIME)).intValue();
+        int amountOfNickels = (this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).divide(NICKEL)).intValue();
+        int amountOfPennies = (this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).remainder(NICKEL).divide(PENNY)).intValue();
+        if (amountOfDollars > 0) {
             changeOutput += amountOfDollars + "Dollars ";
         }
-        if (amountOfQuarters.compareTo(ZERO) == 1) {
+        if (amountOfQuarters > 0) {
             changeOutput += amountOfQuarters + "Quarters ";
         }
-        if (amountOfDimes.compareTo(ZERO) == 1) {
+        if (amountOfDimes > 0) {
             changeOutput += amountOfDimes + "Dimes ";
         }
-        if (amountOfNickels.compareTo(ZERO) == 1) {
+        if (amountOfNickels>0) {
             changeOutput += amountOfNickels + "Nickels ";
         }
-        if (amountOfPennies.compareTo(ZERO) == 1) {
+        if (amountOfPennies>0) {
             changeOutput += amountOfPennies + "Pennies ";
         }
-
+        System.out.println(changeOutput);
             return changeOutput;
 
     }

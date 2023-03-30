@@ -41,6 +41,7 @@ public class VendingMachine
                     vendingMachineInventory.feedMoney(moneyFed);
                 }
                 if (purchaseMenuChoice.equals("finish")) {
+                    System.out.println("Here's your change!");
                     vendingMachineInventory.finishTransaction();
                 }
             }
