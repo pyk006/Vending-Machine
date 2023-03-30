@@ -5,6 +5,7 @@ import com.techelevator.ui.UserOutput;
 
 public class VendingMachine 
 {
+    private CurrUser user = new CurrUser();
     public void run()
     {
         while(true)
@@ -18,7 +19,15 @@ public class VendingMachine
             }
             else if(choice.equals("purchase"))
             {
-                // make a purchase
+                UserOutput.displayPurchaseScreen();
+                String purchaseMenuChoice = PurchaseMenu.getPurchaseMenu();
+                if (purchaseMenuChoice.equals("select")) {
+
+                }
+                if (purchaseMenuChoice.equals("feed")) {
+                    user.feedMoney();
+                }
+                if (purchaseMenuChoice.equals("finish"));
             }
             else if(choice.equals("exit"))
             {

@@ -1,5 +1,7 @@
 package com.techelevator.ui;
 
+import com.techelevator.application.PurchaseMenu;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
