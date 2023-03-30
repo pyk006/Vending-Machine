@@ -17,7 +17,7 @@ public class VendingMachineInventory {
     private static final BigDecimal PENNY = new BigDecimal(".01");
     private static final BigDecimal DOLLAR = new BigDecimal("1.00");
     private static final BigDecimal ZERO = new BigDecimal("0.00");
-    private BigDecimal currBalance = new BigDecimal("5.45");
+    private BigDecimal currBalance = new BigDecimal("0.00");
     private int hasDiscount = 1;
 
 
@@ -74,19 +74,19 @@ public class VendingMachineInventory {
         int amountOfNickels = (this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).divide(NICKEL)).intValue();
         int amountOfPennies = (this.currBalance.remainder(DOLLAR).remainder(QUARTER).remainder(DIME).remainder(NICKEL).divide(PENNY)).intValue();
         if (amountOfDollars > 0) {
-            changeOutput += amountOfDollars + "Dollars ";
+            changeOutput += amountOfDollars + " Dollars ";
         }
         if (amountOfQuarters > 0) {
-            changeOutput += amountOfQuarters + "Quarters ";
+            changeOutput += amountOfQuarters + " Quarters ";
         }
         if (amountOfDimes > 0) {
-            changeOutput += amountOfDimes + "Dimes ";
+            changeOutput += amountOfDimes + " Dimes ";
         }
         if (amountOfNickels>0) {
-            changeOutput += amountOfNickels + "Nickels ";
+            changeOutput += amountOfNickels + " Nickels ";
         }
         if (amountOfPennies>0) {
-            changeOutput += amountOfPennies + "Pennies ";
+            changeOutput += amountOfPennies + " Pennies ";
         }
         System.out.println(changeOutput);
             return changeOutput;

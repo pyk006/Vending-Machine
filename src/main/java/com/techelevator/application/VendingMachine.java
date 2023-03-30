@@ -3,6 +3,7 @@ package com.techelevator.application;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class VendingMachine
     public void run() throws FileNotFoundException {
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
         vendingMachineInventory.parseInventory();
+        TransactionAuditor transactionAuditor = new TransactionAuditor();
 
         while(true)
         {
@@ -39,6 +41,7 @@ public class VendingMachine
                     System.out.println("Please input the amount of added cash: ");
                     String moneyFed = scnr.nextLine();
                     vendingMachineInventory.feedMoney(moneyFed);
+                    transactionAuditor.audit();
                 }
                 if (purchaseMenuChoice.equals("finish")) {
                     System.out.println("Here's your change!");
