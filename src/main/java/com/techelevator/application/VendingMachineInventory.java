@@ -50,7 +50,7 @@ public class VendingMachineInventory {
 
     public void displayInventory() {
         for(VendingItem item : inventory) {
-            System.out.println(item.getVendingId() + " " + item.getCandyName() + ": " + item.getPrice() + " " + item.getStock());
+            System.out.println(item.getVendingId() + " " + item.getCandyName() + ": " + item.getPrice() + " " + item.getStock() + " " + item.getCategory());
         }
     }
 

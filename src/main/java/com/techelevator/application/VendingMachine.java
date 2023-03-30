@@ -35,8 +35,10 @@ public class VendingMachine
                 if (purchaseMenuChoice.equals("select")) {
                     System.out.println("Enter your selection");
                     String selectedItem = scnr.nextLine();
-                    System.out.println(vendingMachineInventory.purchaseItem(selectedItem));
+                    String prevBalance = vendingMachineInventory.getCurrBalance().toString();
 
+                    System.out.println(vendingMachineInventory.purchaseItem(selectedItem));
+                    transactionAuditor.audit(vendingMachineInventory.searchById(selectedItem).getVendingId() + " " + vendingMachineInventory.searchById(selectedItem).getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
 
                 }
                 if (purchaseMenuChoice.equals("feed")) {
