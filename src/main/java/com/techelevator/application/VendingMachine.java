@@ -8,11 +8,7 @@ import java.io.FileNotFoundException;
 public class VendingMachine 
 {
 
-    private CurrUser user = new CurrUser();
-    public void run()
-    {
-
-    public void run() throws FileNotFoundException {
+    public void run() throws FileNotFoundException{
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
         vendingMachineInventory.parseInventory();
 
@@ -33,7 +29,7 @@ public class VendingMachine
 
                 }
                 if (purchaseMenuChoice.equals("feed")) {
-                    user.feedMoney();
+//                    user.feedMoney();
                 }
                 if (purchaseMenuChoice.equals("finish"));
             }

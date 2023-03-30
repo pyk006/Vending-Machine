@@ -3,9 +3,7 @@ package com.techelevator.application;
 import java.math.BigDecimal;
 
 public class VendingItem {
-<<<<<<< HEAD
 
-=======
     private String vendingId;
     private String candyName;
     private BigDecimal price;
@@ -38,5 +36,4 @@ public class VendingItem {
     public String getCategory() {
         return category;
     }
->>>>>>> main
 }
