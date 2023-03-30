@@ -3,11 +3,19 @@ package com.techelevator.application;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
+import java.io.FileNotFoundException;
+
 public class VendingMachine 
 {
+<<<<<<< HEAD
     private CurrUser user = new CurrUser();
     public void run()
     {
+=======
+    public void run() throws FileNotFoundException {
+        VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
+        vendingMachineInventory.parseInventory();
+>>>>>>> main
         while(true)
         {
             UserOutput.displayHomeScreen();
@@ -15,7 +23,7 @@ public class VendingMachine
 
             if(choice.equals("display"))
             {
-                // display the vending machine slots
+                vendingMachineInventory.displayInventory();
             }
             else if(choice.equals("purchase"))
             {
