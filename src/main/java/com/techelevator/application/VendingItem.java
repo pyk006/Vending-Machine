@@ -16,7 +16,9 @@ public class VendingItem {
         this.price = new BigDecimal(price);
         this.category = category;
     }
-
+    public void itemPurchased() {
+        this.stock--;
+    }
     public String getVendingId() {
         return vendingId;
     }
