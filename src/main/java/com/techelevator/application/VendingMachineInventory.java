@@ -53,6 +53,10 @@ public class VendingMachineInventory {
         }
     }
 
+    public BigDecimal getCurrBalance() {
+        return currBalance;
+    }
+
     //TODO: potentially write custom exception in items to throw out when no stock left.
     public void purchaseItem(String s) {
         searchById(s).itemPurchased();
@@ -88,6 +92,7 @@ public class VendingMachineInventory {
         if (amountOfPennies>0) {
             changeOutput += amountOfPennies + " Pennies ";
         }
+        this.currBalance = ZERO;
         System.out.println(changeOutput);
             return changeOutput;
 

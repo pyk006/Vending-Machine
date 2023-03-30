@@ -41,11 +41,13 @@ public class VendingMachine
                     System.out.println("Please input the amount of added cash: ");
                     String moneyFed = scnr.nextLine();
                     vendingMachineInventory.feedMoney(moneyFed);
-                    transactionAuditor.audit();
+                    transactionAuditor.audit("MONEY FED:" ,moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
                 }
                 if (purchaseMenuChoice.equals("finish")) {
                     System.out.println("Here's your change!");
+                    transactionAuditor.audit("CHANGE GIVEN:", (vendingMachineInventory.getCurrBalance()).toString(), "0.00");
                     vendingMachineInventory.finishTransaction();
+
                 }
             }
             else if(choice.equals("exit"))

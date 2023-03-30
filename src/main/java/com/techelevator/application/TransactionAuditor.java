@@ -20,11 +20,11 @@ public class TransactionAuditor {
 
 
 
-    public void audit() throws FileNotFoundException {
+    public void audit(String inputType, String moneyAmount, String currBalance) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(auditInventory, true))) {
             // 01/01/2022 12:00:00 PM MONEY FED:          $5.00   $5.00
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm:ss a ");
-            writer.println(LocalDateTime.now().format(format) + "HELLO-TEST");
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a ");
+            writer.println(LocalDateTime.now().format(format) + " " + inputType + " " + moneyAmount + " " + currBalance);
         }
 
     }
