@@ -5,6 +5,7 @@ import com.techelevator.ui.UserOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class VendingMachine 
@@ -34,18 +35,29 @@ public class VendingMachine
                 if (purchaseMenuChoice.equals("select")) {
                     System.out.println("Enter your selection");
                     String selectedItem = scnr.nextLine();
-                    vendingMachineInventory.purchaseItem(selectedItem);
+                    System.out.println(vendingMachineInventory.purchaseItem(selectedItem));
+
+
                 }
                 if (purchaseMenuChoice.equals("feed")) {
+                    boolean userFeedsMoney = true;
+                    //To continuously feed money for the user
+                    while (userFeedsMoney) {
+                        System.out.println("Please input the amount of added cash: ");
+                        String moneyFed = scnr.nextLine();
+                        vendingMachineInventory.feedMoney(moneyFed);
+                        transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                        System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
+                        String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
+                        if (addMoreOrStop.equals("n")) {
+                            userFeedsMoney = false;
+                        }
 
-                    System.out.println("Please input the amount of added cash: ");
-                    String moneyFed = scnr.nextLine();
-                    vendingMachineInventory.feedMoney(moneyFed);
-                    transactionAuditor.audit("MONEY FED:" ,moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                    }
                 }
                 if (purchaseMenuChoice.equals("finish")) {
-                    System.out.println("Here's your change!");
                     transactionAuditor.audit("CHANGE GIVEN:", (vendingMachineInventory.getCurrBalance()).toString(), "0.00");
+                    System.out.println("Here's your change!");
                     vendingMachineInventory.finishTransaction();
 
                 }
