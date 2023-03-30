@@ -38,8 +38,4 @@ public class VendingItem {
     public String getCategory() {
         return category;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 }

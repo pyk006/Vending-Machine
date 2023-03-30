@@ -9,12 +9,9 @@ import java.util.Scanner;
 public class VendingMachine 
 {
 
-<<<<<<< HEAD
-    public void run() throws FileNotFoundException{
-=======
+
 
     public void run() throws FileNotFoundException {
->>>>>>> main
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
         vendingMachineInventory.parseInventory();
 
@@ -38,15 +35,14 @@ public class VendingMachine
                     vendingMachineInventory.purchaseItem(selectedItem);
                 }
                 if (purchaseMenuChoice.equals("feed")) {
-<<<<<<< HEAD
-//                    user.feedMoney();
-=======
+
                     System.out.println("Please input the amount of added cash: ");
                     String moneyFed = scnr.nextLine();
                     vendingMachineInventory.feedMoney(moneyFed);
->>>>>>> main
                 }
-                if (purchaseMenuChoice.equals("finish"));
+                if (purchaseMenuChoice.equals("finish")) {
+                    vendingMachineInventory.finishTransaction();
+                }
             }
             else if(choice.equals("exit"))
             {
