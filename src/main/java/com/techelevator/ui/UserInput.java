@@ -37,6 +37,9 @@ public class UserInput
         {
             return "purchase";
         }
+        else if(option.equals("s")) {
+            return "secret";
+        }
         else if (option.equals("e"))
         {
             return "exit";

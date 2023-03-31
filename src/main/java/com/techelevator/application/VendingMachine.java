@@ -94,6 +94,10 @@ public class VendingMachine
                 }
             }
             }
+            else if(choice.equals("secret")) {
+                vendingMachineInventory.generateSalesReport();
+                System.out.println("Sales Report Generated!!!");
+            }
             else if(choice.equals("exit"))
             {
                 // good bye
