@@ -17,7 +17,7 @@ public class VendingMachine
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
         vendingMachineInventory.parseInventory();
         TransactionAuditor transactionAuditor = new TransactionAuditor();
-
+        boolean inLoop = true;
         while(true)
         {
             UserOutput.displayHomeScreen();
@@ -31,6 +31,7 @@ public class VendingMachine
             }
             else if(choice.equals("purchase"))
             {
+                while(inLoop){
                 UserOutput.displayPurchaseScreen();
                 String purchaseMenuChoice = PurchaseMenu.getPurchaseMenu();
                 if (purchaseMenuChoice.equals("select")) {
@@ -45,16 +46,16 @@ public class VendingMachine
                             transactionAuditor.audit(vendingMachineInventory.searchById(selectedItem).getVendingId() + " " + vendingMachineInventory.searchById(selectedItem).getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
                         } else {
                             System.out.println("Item is out of stock! Bringing you back to the Purchase Menu");
-                            UserOutput.displayPurchaseScreen();
-                            purchaseMenuChoice = PurchaseMenu.getPurchaseMenu();
+                            continue;
                         }
-                    }   catch (NullPointerException e) {
+                    } catch (NullPointerException e) {
                         System.out.println("The item you searched for does not exist.  Please try again.");
 
+                        continue;
                     }
-
-
                 }
+
+
                 if (purchaseMenuChoice.equals("feed")) {
                     boolean userFeedsMoney = true;
                     //To continuously feed money for the user
@@ -75,8 +76,9 @@ public class VendingMachine
                     transactionAuditor.audit("CHANGE GIVEN:", (vendingMachineInventory.getCurrBalance()).toString(), "0.00");
                     System.out.println("Here's your change!");
                     vendingMachineInventory.finishTransaction();
-
+                    inLoop = false;
                 }
+            }
             }
             else if(choice.equals("exit"))
             {

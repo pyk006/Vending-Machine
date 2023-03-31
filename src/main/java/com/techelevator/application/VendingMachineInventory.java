@@ -34,7 +34,7 @@ public class VendingMachineInventory {
         throw new NullPointerException();
     }
     public VendingItem searchByName(String s) {
-        //TODO: figure out a solution for the null return here
+        //TODO: figure out a solution for the null return here keeping this here but solved above ^
         for(VendingItem item: inventory) {
             if(item.getCandyName().toLowerCase(Locale.ROOT).equals(s)) return item;
         }
@@ -63,7 +63,7 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
-    //TODO: potentially write custom exception in items to throw out when no stock left.
+
     public String purchaseItem(String s) {
 
         if (hasDiscount > 0 && (this.currBalance.compareTo(searchById(s).getPrice()) == 1 || this.currBalance.compareTo(searchById(s).getPrice()) == 0) && searchById(s).getStock() > 0) {
@@ -71,6 +71,7 @@ public class VendingMachineInventory {
             this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
             hasDiscount = -hasDiscount;
             //Dispensing string
+            //TODO: potentially make this into a submethod that we call in purchaseItem()
             if (searchById(s).getCategory().equals("Munchy")) {
                 return "Item Dispensing..." + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() + " Munchy, Munchy, so Good!";
             }
