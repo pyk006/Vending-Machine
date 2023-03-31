@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class VendingMachineInventory {
@@ -25,14 +26,17 @@ public class VendingMachineInventory {
 
     }
     public VendingItem searchById(String s) {
+        s = s.toLowerCase(Locale.ROOT);
         for(VendingItem item : inventory) {
-            if(item.getVendingId().equals(s)) return item;
+            if(item.getVendingId().toLowerCase(Locale.ROOT).equals(s)) return item;
         }
-        return null;
+        //System.out.println("Sorry no such item exists.");
+        throw new NullPointerException();
     }
     public VendingItem searchByName(String s) {
+        //TODO: figure out a solution for the null return here
         for(VendingItem item: inventory) {
-            if(item.getCandyName().equals(s)) return item;
+            if(item.getCandyName().toLowerCase(Locale.ROOT).equals(s)) return item;
         }
         return null;
     }

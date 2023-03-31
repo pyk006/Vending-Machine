@@ -41,7 +41,6 @@ public class UserInput
         {
             return "exit";
         }
-
         return "";
     }
 }
