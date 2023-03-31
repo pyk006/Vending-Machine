@@ -7,7 +7,7 @@ public class VendingItem {
     private String vendingId;
     private String candyName;
     private BigDecimal price;
-    private int stock = 6;
+    private int stock = 0;
     private String category;
 
     public VendingItem(String vendingId, String candyName, String price, String category) {

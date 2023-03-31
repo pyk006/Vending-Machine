@@ -50,6 +50,7 @@ public class VendingMachine
                         }
                     }   catch (NullPointerException e) {
                         System.out.println("The item you searched for does not exist.  Please try again.");
+
                     }
 
 

@@ -111,8 +111,13 @@ public class VendingMachineInventory {
         }
     }
     public void feedMoney(String inputVal) {
-        this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
-        System.out.println("***** CURRENT MONEY PROVIDED: " + this.currBalance + " *****");
+
+        if (new BigDecimal(inputVal).compareTo(new BigDecimal("1.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("5.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("10.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("20.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("100.00")) == 0 ) {
+            this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
+            System.out.println("***** CURRENT MONEY PROVIDED: " + this.currBalance + " *****");
+        } else {
+            System.out.println("Please put in Dollar Bills only!");
+        }
     }
 
     public String finishTransaction() {
