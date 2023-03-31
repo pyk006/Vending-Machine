@@ -143,13 +143,17 @@ public class VendingMachineInventory {
         }
         this.currBalance = ZERO;
         System.out.println(changeOutput);
+
             return changeOutput;
 
     }
 
     public void generateSalesReport() {
-        for(VendingItem item : inventory) {
-            System.out.println(item.getCandyName() + " | " + item.getPurchasedAtFullPrice() + " | " + item.getPurchasedWithDiscount());
+        SalesReport salesReport = new SalesReport();
+        try {
+            salesReport.generateSalesReport(inventory);
+        } catch (FileNotFoundException e) {
+            System.out.println("Secret file not found");
         }
     }
 }
