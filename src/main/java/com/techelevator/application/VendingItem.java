@@ -7,8 +7,18 @@ public class VendingItem {
     private String vendingId;
     private String candyName;
     private BigDecimal price;
-    private int stock = 0;
+    private int stock = 6;
     private String category;
+    private int purchasedAtFullPrice = 0;
+    private int purchasedWithDiscount = 0;
+
+    public int getPurchasedAtFullPrice() {
+        return purchasedAtFullPrice;
+    }
+
+    public int getPurchasedWithDiscount() {
+        return purchasedWithDiscount;
+    }
 
     public VendingItem(String vendingId, String candyName, String price, String category) {
         this.vendingId = vendingId;
@@ -16,8 +26,10 @@ public class VendingItem {
         this.price = new BigDecimal(price);
         this.category = category;
     }
-    public void itemPurchased() {
+    public void itemPurchased(int i) {
         this.stock--;
+        if(i < 0) purchasedWithDiscount++;
+        else  purchasedAtFullPrice++;
     }
     public String getVendingId() {
         return vendingId;

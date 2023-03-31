@@ -67,14 +67,14 @@ public class VendingMachineInventory {
     public void purchaseItem(VendingItem itemToPurchase) {
 
         if (hasDiscount > 0 && (this.currBalance.compareTo(itemToPurchase.getPrice()) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice()) == 0) && itemToPurchase.getStock() > 0) {
-            itemToPurchase.itemPurchased();
+            itemToPurchase.itemPurchased(hasDiscount);
             this.currBalance = this.currBalance.subtract(itemToPurchase.getPrice());
             hasDiscount = -hasDiscount;
             //Dispensing string
             dispenseMessage(itemToPurchase);
         }
         else if (hasDiscount < 0 && (this.currBalance.compareTo(itemToPurchase.getPrice().subtract(new BigDecimal("1.00"))) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice().subtract(new BigDecimal("1.00"))) == 0) && itemToPurchase.getStock() > 0) {
-            itemToPurchase.itemPurchased();
+            itemToPurchase.itemPurchased(hasDiscount);
                 this.currBalance = this.currBalance.add(new BigDecimal("1.00"));
                 hasDiscount = Math.abs(hasDiscount);
 
