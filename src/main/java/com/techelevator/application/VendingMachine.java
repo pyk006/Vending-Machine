@@ -58,8 +58,11 @@ public class VendingMachine
                             vendingMachineInventory.purchaseItem(selectedItem);
                             transactionAuditor.audit(selectedItem.getVendingId() + " " + selectedItem.getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
 
-                        } else {
+                        } else if (selectedItem.getStock() <= 0) {
                             System.out.println("Item is out of stock! Bringing you back to the Purchase Menu");
+                            continue;
+                        } else {
+                            System.out.println("You don't have enough money, put more money in the machine and try again!");
                             continue;
                         }
                     } catch (NullPointerException e) {
