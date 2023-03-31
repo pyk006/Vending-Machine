@@ -141,4 +141,10 @@ public class VendingMachineInventory {
             return changeOutput;
 
     }
+
+    public void generateSalesReport() {
+        for(VendingItem item : inventory) {
+            System.out.println(item.getCandyName() + " | " + item.getPurchasedAtFullPrice() + " | " + item.getPurchasedWithDiscount());
+        }
+    }
 }
