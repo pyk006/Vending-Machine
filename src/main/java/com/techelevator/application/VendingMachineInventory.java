@@ -69,6 +69,9 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
+    public int getHasDiscount() {
+        return hasDiscount;
+    }
 
     public void purchaseItem(VendingItem itemToPurchase) {
 

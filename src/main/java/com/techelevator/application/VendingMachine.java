@@ -47,10 +47,17 @@ public class VendingMachine
                     try {
                         String selectedSlot = scnr.nextLine();
                         VendingItem selectedItem = vendingMachineInventory.searchById(selectedSlot);
-                        if (selectedItem.getStock() > 0) {
+                        if (selectedItem.getStock() > 0 && vendingMachineInventory.getHasDiscount() > 0 && (vendingMachineInventory.getCurrBalance().compareTo(selectedItem.getPrice()) == 1  || vendingMachineInventory.getCurrBalance().compareTo(selectedItem.getPrice()) == 0)) {
                             String prevBalance = vendingMachineInventory.getCurrBalance().toString();
                             vendingMachineInventory.purchaseItem(selectedItem);
                             transactionAuditor.audit(selectedItem.getVendingId() + " " + selectedItem.getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
+
+                        }
+                        else if (selectedItem.getStock() > 0 && vendingMachineInventory.getHasDiscount() < 0 && (vendingMachineInventory.getCurrBalance().add(new BigDecimal("1.00")).compareTo(selectedItem.getPrice()) == 1  || vendingMachineInventory.getCurrBalance().add(new BigDecimal("1.00")).compareTo(selectedItem.getPrice()) == 0)) {
+                            String prevBalance = vendingMachineInventory.getCurrBalance().toString();
+                            vendingMachineInventory.purchaseItem(selectedItem);
+                            transactionAuditor.audit(selectedItem.getVendingId() + " " + selectedItem.getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
+
                         } else {
                             System.out.println("Item is out of stock! Bringing you back to the Purchase Menu");
                             continue;
