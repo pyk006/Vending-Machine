@@ -74,7 +74,6 @@ public class VendingMachine
                             if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIFTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
                                 transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
                             }
-
                             System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
                             String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
                             if (addMoreOrStop.equals("n")) {
@@ -83,8 +82,6 @@ public class VendingMachine
                         } catch (NumberFormatException e) {
                             System.out.println("** Please input a Dollar Bill amount! **");
                         }
-
-
                     }
                 }
                 if (purchaseMenuChoice.equals("finish")) {
