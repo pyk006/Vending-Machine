@@ -19,8 +19,24 @@ public class VendingMachineInventoryTest {
 
     }
     @Test
-    public void parseInventoryTest() {
+    public void parseInventoryTest_with_catering1_file() throws FileNotFoundException {
+        sut.parseInventory("catering1.csv");
+        VendingItem expectedValue = new VendingItem("D1", "Chippos", "3.85", "Munchy");
+        VendingItem actualValue = sut.getInventory().get(3);
 
+        assertEquals(expectedValue.getPrice(),actualValue.getPrice());
+        assertEquals(expectedValue.getCandyName(),actualValue.getCandyName());
+
+    }
+    @Test
+    public void parseInventoryTest_with_catering_file() throws FileNotFoundException {
+        sut.parseInventory("catering.csv");
+        VendingItem expectedValue = new VendingItem("A1", "U-Chews", "1.65", "Gum");
+        VendingItem actualValue = sut.getInventory().get(0);
+
+        assertEquals(expectedValue.getPrice(),actualValue.getPrice());
+        assertEquals(expectedValue.getCandyName(),actualValue.getCandyName());
+        assertEquals(expectedValue.getCategory(),actualValue.getCategory());
 
     }
     @Test
@@ -51,7 +67,8 @@ public class VendingMachineInventoryTest {
 
 
     @Test
-    public void displayInventoryTest() {
+    public void displayInventoryTest_stock() {
+;
     }
 
 

@@ -40,7 +40,6 @@ public class VendingMachineInventory {
         throw new NullPointerException();
     }
     public VendingItem searchByName(String s) {
-        //TODO: figure out a solution for the null return here
         for(VendingItem item: inventory) {
             if(item.getCandyName().toLowerCase(Locale.ROOT).equals(s)) return item;
         }
@@ -71,6 +70,10 @@ public class VendingMachineInventory {
 
     public int getHasDiscount() {
         return hasDiscount;
+    }
+
+    public List<VendingItem> getInventory() {
+        return inventory;
     }
 
     public void purchaseItem(VendingItem itemToPurchase) {
