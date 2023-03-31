@@ -85,23 +85,24 @@ public class VendingMachineInventory {
         } else {
             if(this.currBalance.compareTo(itemToPurchase.getPrice()) == -1) System.out.println("You do not have enough money!");
             else System.out.println("Item out of stock!");
-            //logic to check if purchase failed because of no money or no stock
-            //this.currBalance.compareTo(searchById(s).getPrice()) == -1 ? "You don't have enough money!" : "Item out of stock!";
+
         }
     }
     public void dispenseMessage(VendingItem item) {
+        String dispenseMessage = "Item Dispensing..." + item.getVendingId() + " " +  item.getCandyName();
         if (item.getCategory().equals("Munchy")) {
-            System.out.println("Item Dispensing..." + item.getVendingId() + " " +  item.getCandyName() + " Munchy, Munchy, so Good!");
+            dispenseMessage += " Munchy, Munchy, so Good!";
         }
         if (item.getCategory().equals("Candy")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Sugar, Sugar, so Sweet!");
+            dispenseMessage +=  " Sugar, Sugar, so Sweet!";
         }
         if (item.getCategory().equals("Drink")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Drinky, Drinky, Slurp Slurp!");
+            dispenseMessage +=  " Drinky, Drinky, Slurp Slurp!";
         }
         if (item.getCategory().equals("Gum")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Chewy, Chewy, Lots O Bubbles!");
+            dispenseMessage +=  " Chewy, Chewy, Lots O Bubbles!";
         }
+        System.out.println(dispenseMessage);
     }
     public void feedMoney(String inputVal) {
         if (new BigDecimal(inputVal).compareTo(new BigDecimal("1.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("5.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("10.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("20.00")) == 0 || new BigDecimal(inputVal).compareTo(new BigDecimal("100.00")) == 0 ) {
