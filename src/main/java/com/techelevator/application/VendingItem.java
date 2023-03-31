@@ -12,13 +12,7 @@ public class VendingItem {
     private int purchasedAtFullPrice = 0;
     private int purchasedWithDiscount = 0;
 
-    public int getPurchasedAtFullPrice() {
-        return purchasedAtFullPrice;
-    }
 
-    public int getPurchasedWithDiscount() {
-        return purchasedWithDiscount;
-    }
 
     public VendingItem(String vendingId, String candyName, String price, String category) {
         this.vendingId = vendingId;
@@ -26,6 +20,7 @@ public class VendingItem {
         this.price = new BigDecimal(price);
         this.category = category;
     }
+
     public void itemPurchased(int i) {
         this.stock--;
         if(i < 0) purchasedWithDiscount++;
@@ -49,5 +44,12 @@ public class VendingItem {
 
     public String getCategory() {
         return category;
+    }
+    public int getPurchasedAtFullPrice() {
+        return purchasedAtFullPrice;
+    }
+
+    public int getPurchasedWithDiscount() {
+        return purchasedWithDiscount;
     }
 }
