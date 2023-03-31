@@ -35,11 +35,15 @@ public class VendingMachine
                 if (purchaseMenuChoice.equals("select")) {
                     System.out.println("Enter your selection");
                     String selectedItem = scnr.nextLine();
-                    String prevBalance = vendingMachineInventory.getCurrBalance().toString();
-
-                    System.out.println(vendingMachineInventory.purchaseItem(selectedItem));
-                    transactionAuditor.audit(vendingMachineInventory.searchById(selectedItem).getVendingId() + " " + vendingMachineInventory.searchById(selectedItem).getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
-
+                    if (vendingMachineInventory.searchById(selectedItem).getStock() > 0) {
+                        String prevBalance = vendingMachineInventory.getCurrBalance().toString();
+                        System.out.println(vendingMachineInventory.purchaseItem(selectedItem));
+                        transactionAuditor.audit(vendingMachineInventory.searchById(selectedItem).getVendingId() + " " + vendingMachineInventory.searchById(selectedItem).getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
+                    } else {
+                        System.out.println("Item is out of stock! Bringing you back to the Purchase Menu");
+                        UserOutput.displayPurchaseScreen();
+                        purchaseMenuChoice = PurchaseMenu.getPurchaseMenu();
+                    }
                 }
                 if (purchaseMenuChoice.equals("feed")) {
                     boolean userFeedsMoney = true;
