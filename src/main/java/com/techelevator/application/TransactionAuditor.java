@@ -15,7 +15,11 @@ public class TransactionAuditor {
     private LocalDateTime date;
 
 
-    public TransactionAuditor() {
+    public TransactionAuditor() throws FileNotFoundException {
+        auditInventory = new File("audit.txt");
+        PrintWriter writer = new PrintWriter(auditInventory);
+        writer.flush();
+        writer.close();
 
     }
 

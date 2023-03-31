@@ -19,7 +19,8 @@ public class VendingMachineInventoryTest {
 
     }
     @Test
-    public void parseInventoryTest() throws FileNotFoundException {
+    public void parseInventoryTest() {
+
 
     }
     @Test
@@ -29,10 +30,21 @@ public class VendingMachineInventoryTest {
         String actualValue = sut.searchById(s).getCandyName();
         assertEquals(expectedValue, actualValue);
     }
+    @Test
+    public void searchByIdTest_getVendingId() {
+        String s = "A4";
+        String expectedValue = "A4";
+        String actualValue = sut.searchById(s).getVendingId();
+        assertEquals(expectedValue, actualValue);
+    }
 
 
     @Test
     public void searchByNameTest() {
+        String s = "popcorn";
+        String expectedValue = "Popcorn";
+        String actualValue = sut.searchByName(s).getCandyName();
+        assertEquals(expectedValue,actualValue);
 
     }
 
@@ -42,9 +54,6 @@ public class VendingMachineInventoryTest {
     public void displayInventoryTest() {
     }
 
-    @Test
-    public void getCurrBalanceTest() {
-    }
 
     @Test
     public void purchaseItemTest() {
@@ -66,12 +75,22 @@ public class VendingMachineInventoryTest {
     }
 
     @Test
-    public void finishTransaction_balance_should_be_zero() throws FileNotFoundException {
+    public void finishTransaction_change_calc_value() {
         sut.feedMoney("5.00");
         VendingItem selectedItem = sut.searchById("A4");
         sut.purchaseItem(selectedItem);
         String expectedValue = "3 Dollars 1 Quarters 1 Dimes ";
         String actualValue = sut.finishTransaction();
+        assertEquals(expectedValue, actualValue);
+    }
+    @Test
+    public void finishTransaction_balance_to_zero() {
+        sut.feedMoney("5.00");
+        VendingItem selectedItem = sut.searchById("A2");
+        sut.purchaseItem(selectedItem);
+        sut.finishTransaction();
+        BigDecimal expectedValue = new BigDecimal("0.00");
+        BigDecimal actualValue = sut.getCurrBalance();
         assertEquals(expectedValue, actualValue);
     }
 }

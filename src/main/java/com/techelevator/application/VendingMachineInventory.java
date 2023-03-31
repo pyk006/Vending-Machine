@@ -12,6 +12,8 @@ import java.util.Scanner;
 public class VendingMachineInventory {
     //Instance Variables
     private List<VendingItem> inventory = new ArrayList<>();
+    private BigDecimal currBalance = new BigDecimal("0.00");
+    private int hasDiscount = 1;
     //Constants
     private static final BigDecimal NICKEL = new BigDecimal(".05");
     private static final BigDecimal DIME = new BigDecimal(".10");
@@ -22,9 +24,8 @@ public class VendingMachineInventory {
     private static final BigDecimal FIVE_DOLLAR = new BigDecimal("5.00");
     private static final BigDecimal TEN_DOLLAR = new BigDecimal("10.00");
     private static final BigDecimal TWENTY_DOLLAR = new BigDecimal("20.00");
+    private static final BigDecimal FIFTY_DOLLAR = new BigDecimal("50.00");
     private static final BigDecimal HUNDRED_DOLLAR = new BigDecimal("100.00");
-    private BigDecimal currBalance = new BigDecimal("0.00");
-    private int hasDiscount = 1;
 
 
     public VendingMachineInventory() {
@@ -110,7 +111,7 @@ public class VendingMachineInventory {
         System.out.println(dispenseMessage);
     }
     public void feedMoney(String inputVal) {
-        if (new BigDecimal(inputVal).compareTo(DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(HUNDRED_DOLLAR) == 0 ) {
+        if (new BigDecimal(inputVal).compareTo(DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(FIFTY_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(HUNDRED_DOLLAR) == 0 ) {
             this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
             System.out.println("***** CURRENT MONEY PROVIDED: " + this.currBalance + " *****");
         } else {
