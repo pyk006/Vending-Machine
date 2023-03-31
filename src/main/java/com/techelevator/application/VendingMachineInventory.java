@@ -12,15 +12,20 @@ import java.util.Scanner;
 public class VendingMachineInventory {
     //Instance Variables
     private List<VendingItem> inventory = new ArrayList<>();
+
+    private BigDecimal currBalance = new BigDecimal("0.00");
+    private int hasDiscount = 1;
+    //Constants
     private static final BigDecimal NICKEL = new BigDecimal(".05");
     private static final BigDecimal DIME = new BigDecimal(".10");
     private static final BigDecimal QUARTER = new BigDecimal(".25");
     private static final BigDecimal PENNY = new BigDecimal(".01");
     private static final BigDecimal DOLLAR = new BigDecimal("1.00");
+    private static final BigDecimal FIVE_DOLLAR = new BigDecimal("5.00");
+    private static final BigDecimal TEN_DOLLAR = new BigDecimal("10.00");
+    private static final BigDecimal TWENTY_DOLLAR = new BigDecimal("20.00");
+    private static final BigDecimal HUNDRED_DOLLAR = new BigDecimal("100.00");
     private static final BigDecimal ZERO = new BigDecimal("0.00");
-    private BigDecimal currBalance = new BigDecimal("0.00");
-    private int hasDiscount = 1;
-
 
     public VendingMachineInventory() {
 
@@ -34,7 +39,7 @@ public class VendingMachineInventory {
         throw new NullPointerException();
     }
     public VendingItem searchByName(String s) {
-        //TODO: figure out a solution for the null return here
+        //TODO: figure out a solution for the null return here keeping this here but solved above ^
         for(VendingItem item: inventory) {
             if(item.getCandyName().toLowerCase(Locale.ROOT).equals(s)) return item;
         }
@@ -63,49 +68,62 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
-    //TODO: potentially write custom exception in items to throw out when no stock left.
-    public void purchaseItem(VendingItem itemToPurchase) {
 
-        if (hasDiscount > 0 && (this.currBalance.compareTo(itemToPurchase.getPrice()) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice()) == 0) && itemToPurchase.getStock() > 0) {
-            itemToPurchase.itemPurchased();
-            this.currBalance = this.currBalance.subtract(itemToPurchase.getPrice());
+    public String purchaseItem(String s) {
+
+        if (hasDiscount > 0 && (this.currBalance.compareTo(searchById(s).getPrice()) == 1 || this.currBalance.compareTo(searchById(s).getPrice()) == 0) && searchById(s).getStock() > 0) {
+            searchById(s).itemPurchased();
+            this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
             hasDiscount = -hasDiscount;
             //Dispensing string
-            dispenseMessage(itemToPurchase);
+            //TODO: potentially make this into a submethod that we call in purchaseItem()
+            if (searchById(s).getCategory().equals("Munchy")) {
+                return "Item Dispensing..." + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() + " Munchy, Munchy, so Good!";
+            }
+            if (searchById(s).getCategory().equals("Candy")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Sugar, Sugar, so Sweet!";
+            }
+            if (searchById(s).getCategory().equals("Drink")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Drinky, Drinky, Slurp Slurp!";
+            }
+            if (searchById(s).getCategory().equals("Gum")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Chewy, Chewy, Lots O Bubbles!";
+            }
+            return "";
         }
-        else if (hasDiscount < 0 && (this.currBalance.compareTo(itemToPurchase.getPrice().subtract(new BigDecimal("1.00"))) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice().subtract(new BigDecimal("1.00"))) == 0) && itemToPurchase.getStock() > 0) {
-            itemToPurchase.itemPurchased();
+        else if (hasDiscount < 0 && (this.currBalance.compareTo(searchById(s).getPrice().subtract(new BigDecimal("1.00"))) == 1 || this.currBalance.compareTo(searchById(s).getPrice().subtract(new BigDecimal("1.00"))) == 0) && searchById(s).getStock() > 0) {
+            searchById(s).itemPurchased();
                 this.currBalance = this.currBalance.add(new BigDecimal("1.00"));
                 hasDiscount = Math.abs(hasDiscount);
 
-            this.currBalance = this.currBalance.subtract(itemToPurchase.getPrice());
+            this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
             //Dispensing string
-            //dispenseMessage
-            dispenseMessage(itemToPurchase);
+            if (searchById(s).getCategory().equals("Munchy")) {
+                return "Item Dispensing..." + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() + " Munchy, Munchy, so Good!";
+            }
+            if (searchById(s).getCategory().equals("Candy")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Sugar, Sugar, so Sweet!";
+            }
+            if (searchById(s).getCategory().equals("Drink")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Drinky, Drinky, Slurp Slurp!";
+            }
+            if (searchById(s).getCategory().equals("Gum")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Chewy, Chewy, Lots O Bubbles!";
+            }
+            return "";
         } else {
-            if(this.currBalance.compareTo(itemToPurchase.getPrice()) == -1) System.out.println("You do not have enough money!");
-            else System.out.println("Item out of stock!");
             //logic to check if purchase failed because of no money or no stock
-            //this.currBalance.compareTo(searchById(s).getPrice()) == -1 ? "You don't have enough money!" : "Item out of stock!";
-        }
-    }
-    public void dispenseMessage(VendingItem item) {
-        if (item.getCategory().equals("Munchy")) {
-            System.out.println("Item Dispensing..." + item.getVendingId() + " " +  item.getCandyName() + " Munchy, Munchy, so Good!");
-        }
-        if (item.getCategory().equals("Candy")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Sugar, Sugar, so Sweet!");
-        }
-        if (item.getCategory().equals("Drink")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Drinky, Drinky, Slurp Slurp!");
-        }
-        if (item.getCategory().equals("Gum")) {
-            System.out.println("Item Dispensing..."  + item.getVendingId() + " " +  item.getCandyName() +  " Chewy, Chewy, Lots O Bubbles!");
+            return this.currBalance.compareTo(searchById(s).getPrice()) == -1 ? "You don't have enough money!" : "Item out of stock!";
         }
     }
     public void feedMoney(String inputVal) {
-        this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
-        System.out.println("***** CURRENT MONEY PROVIDED: " + this.currBalance + " *****");
+
+        if (new BigDecimal(inputVal).compareTo(DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(inputVal).compareTo(HUNDRED_DOLLAR) == 0 ) {
+            this.currBalance = this.currBalance.add(new BigDecimal(inputVal));
+            System.out.println("***** CURRENT MONEY PROVIDED: " + this.currBalance + " *****");
+        } else {
+            System.out.println("Please put in Dollar Bills only!");
+        }
     }
 
     public String finishTransaction() {
