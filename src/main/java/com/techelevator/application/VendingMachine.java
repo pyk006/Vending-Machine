@@ -20,7 +20,7 @@ public class VendingMachine
 
     public void run() throws FileNotFoundException {
         VendingMachineInventory vendingMachineInventory = new VendingMachineInventory();
-        vendingMachineInventory.parseInventory();
+        vendingMachineInventory.parseInventory("catering.csv");
         TransactionAuditor transactionAuditor = new TransactionAuditor();
         boolean inLoop = true;
         while(true)
@@ -67,17 +67,22 @@ public class VendingMachine
                     //To continuously feed money for the user
                     while (userFeedsMoney) {
                         System.out.println("Please input the amount of added cash: ");
-                        String moneyFed = scnr.nextLine();
-                        vendingMachineInventory.feedMoney(moneyFed);
-                        if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
-                            transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                        try {
+                            String moneyFed = scnr.nextLine();
+                            vendingMachineInventory.feedMoney(moneyFed);
+                            if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
+                                transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                            }
+
+                            System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
+                            String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
+                            if (addMoreOrStop.equals("n")) {
+                                userFeedsMoney = false;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("** Please input a Dollar Bill amount! **");
                         }
 
-                        System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
-                        String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
-                        if (addMoreOrStop.equals("n")) {
-                            userFeedsMoney = false;
-                        }
 
                     }
                 }

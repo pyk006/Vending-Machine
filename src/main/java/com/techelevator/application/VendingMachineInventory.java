@@ -47,8 +47,8 @@ public class VendingMachineInventory {
     }
 
 
-    public void parseInventory() throws FileNotFoundException {
-        File cateringFile = new File("catering.csv");
+    public void parseInventory(String inputPath) throws FileNotFoundException {
+        File cateringFile = new File(inputPath);
         Scanner scnr = new Scanner(cateringFile);
 
         while(scnr.hasNext()) {
