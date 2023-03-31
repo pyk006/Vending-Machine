@@ -38,6 +38,7 @@ public class VendingMachine
             {
                 while(inLoop){
                 UserOutput.displayPurchaseScreen();
+                System.out.println("Current balance: " + vendingMachineInventory.getCurrBalance());
                 String purchaseMenuChoice = PurchaseMenu.getPurchaseMenu();
                 if (purchaseMenuChoice.equals("select")) {
                     System.out.println("Enter your selection");
