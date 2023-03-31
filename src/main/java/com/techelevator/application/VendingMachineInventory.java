@@ -62,11 +62,30 @@ public class VendingMachineInventory {
     //TODO: potentially write custom exception in items to throw out when no stock left.
     public String purchaseItem(String s) {
 
-        if (this.currBalance.compareTo(searchById(s).getPrice()) == 1 && searchById(s).getStock() > 0) {
+        if (hasDiscount > 0 && (this.currBalance.compareTo(searchById(s).getPrice()) == 1 || this.currBalance.compareTo(searchById(s).getPrice()) == 0) && searchById(s).getStock() > 0) {
             searchById(s).itemPurchased();
-            if(hasDiscount < 0) {
-                this.currBalance = this.currBalance.add(new BigDecimal("1.00"));
+            this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
+            hasDiscount = -hasDiscount;
+            //Dispensing string
+            if (searchById(s).getCategory().equals("Munchy")) {
+                return "Item Dispensing..." + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() + " Munchy, Munchy, so Good!";
             }
+            if (searchById(s).getCategory().equals("Candy")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Sugar, Sugar, so Sweet!";
+            }
+            if (searchById(s).getCategory().equals("Drink")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Drinky, Drinky, Slurp Slurp!";
+            }
+            if (searchById(s).getCategory().equals("Gum")) {
+                return "Item Dispensing..."  + searchById(s).getVendingId() + " " +  searchById(s).getCandyName() +  " Chewy, Chewy, Lots O Bubbles!";
+            }
+            return "";
+        }
+        else if (hasDiscount < 0 && (this.currBalance.compareTo(searchById(s).getPrice().subtract(new BigDecimal("1.00"))) == 1 || this.currBalance.compareTo(searchById(s).getPrice().subtract(new BigDecimal("1.00"))) == 0) && searchById(s).getStock() > 0) {
+            searchById(s).itemPurchased();
+                this.currBalance = this.currBalance.add(new BigDecimal("1.00"));
+                hasDiscount = Math.abs(hasDiscount);
+
             this.currBalance = this.currBalance.subtract(searchById(s).getPrice());
             //Dispensing string
             if (searchById(s).getCategory().equals("Munchy")) {
