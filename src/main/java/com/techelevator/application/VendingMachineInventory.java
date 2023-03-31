@@ -63,7 +63,7 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
-    //TODO: potentially write custom exception in items to throw out when no stock left.
+
     public String purchaseItem(String s) {
 
         if (hasDiscount > 0 && (this.currBalance.compareTo(searchById(s).getPrice()) == 1 || this.currBalance.compareTo(searchById(s).getPrice()) == 0) && searchById(s).getStock() > 0) {
