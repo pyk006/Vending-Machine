@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,6 +25,8 @@ public class TransactionAuditor {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(auditInventory, true))) {
             // 01/01/2022 12:00:00 PM MONEY FED:          $5.00   $5.00
             DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a ");
+            // Making sure the dollar amounts are right for feed money
+
             writer.println(LocalDateTime.now().format(format) + " " + inputType + " " + moneyAmount + " " + currBalance);
         }
 

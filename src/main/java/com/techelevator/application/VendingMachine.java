@@ -5,12 +5,17 @@ import com.techelevator.ui.UserOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class VendingMachine 
 {
-
+    private static final BigDecimal DOLLAR = new BigDecimal("1.00");
+    private static final BigDecimal FIVE_DOLLAR = new BigDecimal("5.00");
+    private static final BigDecimal TEN_DOLLAR = new BigDecimal("10.00");
+    private static final BigDecimal TWENTY_DOLLAR = new BigDecimal("20.00");
+    private static final BigDecimal HUNDRED_DOLLAR = new BigDecimal("100.00");
 
 
     public void run() throws FileNotFoundException {
@@ -63,7 +68,10 @@ public class VendingMachine
                         System.out.println("Please input the amount of added cash: ");
                         String moneyFed = scnr.nextLine();
                         vendingMachineInventory.feedMoney(moneyFed);
-                        transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                        if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
+                            transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
+                        }
+
                         System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
                         String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
                         if (addMoreOrStop.equals("n")) {
