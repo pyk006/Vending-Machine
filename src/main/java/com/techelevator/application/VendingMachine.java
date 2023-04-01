@@ -15,6 +15,7 @@ public class VendingMachine
     private static final BigDecimal FIVE_DOLLAR = new BigDecimal("5.00");
     private static final BigDecimal TEN_DOLLAR = new BigDecimal("10.00");
     private static final BigDecimal TWENTY_DOLLAR = new BigDecimal("20.00");
+    private static final BigDecimal FIFTY_DOLLAR = new BigDecimal("50.00");
     private static final BigDecimal HUNDRED_DOLLAR = new BigDecimal("100.00");
 
 
@@ -46,12 +47,22 @@ public class VendingMachine
                     try {
                         String selectedSlot = scnr.nextLine();
                         VendingItem selectedItem = vendingMachineInventory.searchById(selectedSlot);
-                        if (selectedItem.getStock() > 0) {
+                        if (selectedItem.getStock() > 0 && vendingMachineInventory.getHasDiscount() > 0 && (vendingMachineInventory.getCurrBalance().compareTo(selectedItem.getPrice()) == 1  || vendingMachineInventory.getCurrBalance().compareTo(selectedItem.getPrice()) == 0)) {
                             String prevBalance = vendingMachineInventory.getCurrBalance().toString();
                             vendingMachineInventory.purchaseItem(selectedItem);
                             transactionAuditor.audit(selectedItem.getVendingId() + " " + selectedItem.getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
-                        } else {
+
+                        }
+                        else if (selectedItem.getStock() > 0 && vendingMachineInventory.getHasDiscount() < 0 && (vendingMachineInventory.getCurrBalance().add(new BigDecimal("1.00")).compareTo(selectedItem.getPrice()) == 1  || vendingMachineInventory.getCurrBalance().add(new BigDecimal("1.00")).compareTo(selectedItem.getPrice()) == 0)) {
+                            String prevBalance = vendingMachineInventory.getCurrBalance().toString();
+                            vendingMachineInventory.purchaseItem(selectedItem);
+                            transactionAuditor.audit(selectedItem.getVendingId() + " " + selectedItem.getCandyName(), prevBalance, vendingMachineInventory.getCurrBalance().toString());
+
+                        } else if (selectedItem.getStock() <= 0) {
                             System.out.println("Item is out of stock! Bringing you back to the Purchase Menu");
+                            continue;
+                        } else {
+                            System.out.println("You don't have enough money, put more money in the machine and try again!");
                             continue;
                         }
                     } catch (NullPointerException e) {
@@ -69,10 +80,9 @@ public class VendingMachine
                         try {
                             String moneyFed = scnr.nextLine();
                             vendingMachineInventory.feedMoney(moneyFed);
-                            if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
+                            if (new BigDecimal(moneyFed).compareTo(DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIVE_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TEN_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(TWENTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(FIFTY_DOLLAR) == 0 || new BigDecimal(moneyFed).compareTo(HUNDRED_DOLLAR) == 0 ) {
                                 transactionAuditor.audit("MONEY FED:", moneyFed, (vendingMachineInventory.getCurrBalance()).toString());
                             }
-
                             System.out.println("Do you want to add more cash (Enter any character to continue OR 'N' to stop) ?: ");
                             String addMoreOrStop = scnr.nextLine().trim().toLowerCase();
                             if (addMoreOrStop.equals("n")) {

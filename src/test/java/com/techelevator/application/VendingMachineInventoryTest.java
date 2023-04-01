@@ -19,7 +19,24 @@ public class VendingMachineInventoryTest {
 
     }
     @Test
-    public void parseInventoryTest() throws FileNotFoundException {
+    public void parseInventoryTest_with_catering1_file() throws FileNotFoundException {
+        sut.parseInventory("catering1.csv");
+        VendingItem expectedValue = new VendingItem("D1", "Chippos", "3.85", "Munchy");
+        VendingItem actualValue = sut.getInventory().get(3);
+
+        assertEquals(expectedValue.getPrice(),actualValue.getPrice());
+        assertEquals(expectedValue.getCandyName(),actualValue.getCandyName());
+
+    }
+    @Test
+    public void parseInventoryTest_with_catering_file() throws FileNotFoundException {
+        sut.parseInventory("catering.csv");
+        VendingItem expectedValue = new VendingItem("A1", "U-Chews", "1.65", "Gum");
+        VendingItem actualValue = sut.getInventory().get(0);
+
+        assertEquals(expectedValue.getPrice(),actualValue.getPrice());
+        assertEquals(expectedValue.getCandyName(),actualValue.getCandyName());
+        assertEquals(expectedValue.getCategory(),actualValue.getCategory());
 
     }
     @Test
@@ -29,22 +46,31 @@ public class VendingMachineInventoryTest {
         String actualValue = sut.searchById(s).getCandyName();
         assertEquals(expectedValue, actualValue);
     }
+    @Test
+    public void searchByIdTest_getVendingId() {
+        String s = "A4";
+        String expectedValue = "A4";
+        String actualValue = sut.searchById(s).getVendingId();
+        assertEquals(expectedValue, actualValue);
+    }
 
 
     @Test
     public void searchByNameTest() {
+        String s = "popcorn";
+        String expectedValue = "Popcorn";
+        String actualValue = sut.searchByName(s).getCandyName();
+        assertEquals(expectedValue,actualValue);
 
     }
 
 
 
     @Test
-    public void displayInventoryTest() {
+    public void displayInventoryTest_stock() {
+;
     }
 
-    @Test
-    public void getCurrBalanceTest() {
-    }
 
     @Test
     public void purchaseItemTest() {
@@ -70,12 +96,22 @@ public class VendingMachineInventoryTest {
     }
 
     @Test
-    public void finishTransaction_balance_should_be_zero() throws FileNotFoundException {
+    public void finishTransaction_change_calc_value() {
         sut.feedMoney("5.00");
         VendingItem selectedItem = sut.searchById("A4");
         sut.purchaseItem(selectedItem);
         String expectedValue = "3 Dollars 1 Quarters 1 Dimes ";
         String actualValue = sut.finishTransaction();
+        assertEquals(expectedValue, actualValue);
+    }
+    @Test
+    public void finishTransaction_balance_to_zero() {
+        sut.feedMoney("5.00");
+        VendingItem selectedItem = sut.searchById("A2");
+        sut.purchaseItem(selectedItem);
+        sut.finishTransaction();
+        BigDecimal expectedValue = new BigDecimal("0.00");
+        BigDecimal actualValue = sut.getCurrBalance();
         assertEquals(expectedValue, actualValue);
     }
 }
