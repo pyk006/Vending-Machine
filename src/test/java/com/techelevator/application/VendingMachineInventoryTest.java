@@ -68,17 +68,70 @@ public class VendingMachineInventoryTest {
 
     @Test
     public void displayInventoryTest_stock() {
+        sut.displayInventory();
+        System.out.println("Go to catering1 file and see if info matches ^^^ lol");
 ;
     }
 
 
     @Test
-    public void purchaseItemTest() {
+    public void purchaseItem_NotMoney() throws FileNotFoundException {
         /*
         Arrange:
 
          */
+        sut.parseInventory("catering.csv");
+        sut.feedMoney("1.00");
+        VendingItem purchasedItem = sut.searchById("A1");
+        sut.purchaseItem(purchasedItem);
+        System.out.println("Should say you do not have money!");
     }
+
+    @Test
+    public void purchaseItem_DiscountCheck() throws FileNotFoundException {
+        sut.parseInventory("catering.csv");
+        sut.feedMoney("5.00");
+        VendingItem canAffordTwoWithDiscount = sut.searchById("C3");
+        sut.purchaseItem(canAffordTwoWithDiscount);
+        System.out.println(sut.getCurrBalance());
+        System.out.println(canAffordTwoWithDiscount.getPrice());
+        System.out.println("Purchasing C3 again, should only dispense if discount is working.");
+        sut.purchaseItem(canAffordTwoWithDiscount);
+
+    }
+
+    @Test
+    public void purchaseItem_ExactValue() throws FileNotFoundException {
+        sut.parseInventory("catering.csv");
+        sut.feedMoney("10.00");
+        sut.feedMoney("1.00");
+        sut.feedMoney("1.00");
+        sut.feedMoney("1.00");
+
+        VendingItem stupidItem = sut.searchById("C2");
+        sut.purchaseItem(stupidItem);
+        sut.purchaseItem(stupidItem);
+        sut.purchaseItem(stupidItem);
+        sut.purchaseItem(stupidItem);
+        System.out.println("Last purchase price == currBalance will only dispense 4th time if comparison logic is correct.");
+
+    }
+
+    @Test
+    public void purchaseItem_OutOfStock() {
+        sut.feedMoney("20.00");
+        VendingItem repeatedPurchase = sut.searchById("a1");
+        System.out.println("buying item until out of stock");
+        sut.purchaseItem(repeatedPurchase);
+        sut.purchaseItem(repeatedPurchase);
+        sut.purchaseItem(repeatedPurchase);
+        sut.purchaseItem(repeatedPurchase);
+        sut.purchaseItem(repeatedPurchase);
+        sut.purchaseItem(repeatedPurchase);
+        System.out.println("Next attempt should return out of stock");
+        sut.purchaseItem(repeatedPurchase);
+    }
+
 
     @Test
     public void feedMoneyTest_normal_dollar_value() {

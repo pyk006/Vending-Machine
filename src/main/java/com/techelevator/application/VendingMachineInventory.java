@@ -31,6 +31,7 @@ public class VendingMachineInventory {
     public VendingMachineInventory() {
 
     }
+
     public VendingItem searchById(String s) {
         s = s.toLowerCase(Locale.ROOT);
         for(VendingItem item : inventory) {
@@ -39,6 +40,7 @@ public class VendingMachineInventory {
         //System.out.println("Sorry no such item exists.");
         throw new NullPointerException();
     }
+
     public VendingItem searchByName(String s) {
         for(VendingItem item: inventory) {
             if(item.getCandyName().toLowerCase(Locale.ROOT).equals(s)) return item;
@@ -68,8 +70,7 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
-<<<<<<< HEAD
-=======
+
     public int getHasDiscount() {
         return hasDiscount;
     }
@@ -78,7 +79,7 @@ public class VendingMachineInventory {
         return inventory;
     }
 
->>>>>>> main
+
     public void purchaseItem(VendingItem itemToPurchase) {
 
         if (hasDiscount > 0 && (this.currBalance.compareTo(itemToPurchase.getPrice()) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice()) == 0) && itemToPurchase.getStock() > 0) {
