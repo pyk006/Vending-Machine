@@ -61,7 +61,6 @@ public class VendingMachine
                     }
                 }
 
-
                 if (purchaseMenuChoice.equals("feed")) {
                     boolean userFeedsMoney = true;
                     //To continuously feed money for the user
@@ -82,17 +81,15 @@ public class VendingMachine
                         } catch (NumberFormatException e) {
                             System.out.println("** Please input a Dollar Bill amount! **");
                         }
-
-
                     }
                 }
-                if (purchaseMenuChoice.equals("finish")) {
-                    transactionAuditor.audit("CHANGE GIVEN:", (vendingMachineInventory.getCurrBalance()).toString(), "0.00");
-                    System.out.println("Here's your change!");
-                    vendingMachineInventory.finishTransaction();
-                    inLoop = false;
+                    if (purchaseMenuChoice.equals("finish")) {
+                        transactionAuditor.audit("CHANGE GIVEN:", (vendingMachineInventory.getCurrBalance()).toString(), "0.00");
+                        System.out.println("Here's your change!");
+                        vendingMachineInventory.finishTransaction();
+                        inLoop = false;
+                    }
                 }
-            }
             }
             else if(choice.equals("secret")) {
                 vendingMachineInventory.generateSalesReport();

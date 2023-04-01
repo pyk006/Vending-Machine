@@ -48,6 +48,10 @@ public class VendingMachineInventoryTest {
 
     @Test
     public void purchaseItemTest() {
+        /*
+        Arrange:
+
+         */
     }
 
     @Test

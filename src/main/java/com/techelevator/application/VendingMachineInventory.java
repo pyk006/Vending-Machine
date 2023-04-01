@@ -68,13 +68,12 @@ public class VendingMachineInventory {
         return currBalance;
     }
 
-    //TODO: potentially write custom exception in items to throw out when no stock left.
     public void purchaseItem(VendingItem itemToPurchase) {
 
         if (hasDiscount > 0 && (this.currBalance.compareTo(itemToPurchase.getPrice()) == 1 || this.currBalance.compareTo(itemToPurchase.getPrice()) == 0) && itemToPurchase.getStock() > 0) {
             itemToPurchase.itemPurchased(hasDiscount);
             this.currBalance = this.currBalance.subtract(itemToPurchase.getPrice());
-            hasDiscount = -hasDiscount;
+            hasDiscount *= -1;
             //Dispensing string
             dispenseMessage(itemToPurchase);
         }
@@ -93,6 +92,7 @@ public class VendingMachineInventory {
 
         }
     }
+
     public void dispenseMessage(VendingItem item) {
         String dispenseMessage = "Item Dispensing..." + item.getVendingId() + " " +  item.getCandyName();
         if (item.getCategory().equals("Munchy")) {
